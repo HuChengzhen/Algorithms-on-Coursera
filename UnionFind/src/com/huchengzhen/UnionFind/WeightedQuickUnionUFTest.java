@@ -4,14 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class QuickUnionUFTest {
+class WeightedQuickUnionUFTest {
 
     @Test
     void testInit() {
         var n = 10000;
         var uf = new QuickUnionUF(n);
         for (var i = 0; i < n; i++) {
-            assertEquals(i, uf.id[i]);
+            assertEquals(-1, uf.id[i]);
         }
     }
 
