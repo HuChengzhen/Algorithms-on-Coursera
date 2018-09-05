@@ -1,10 +1,10 @@
 package com.huchengzhen.UnionFind;
 
-public class QuickUnionUF {
+public class WeightedQuickUnionUF {
 
     int[] id;// Negative value mean it's the root and -value is the size.
 
-    public QuickUnionUF(int N) {
+    public WeightedQuickUnionUF(int N) {
         id = new int[N];
         for (int i = 0; i < N; i++) {
             id[i] = -1;
