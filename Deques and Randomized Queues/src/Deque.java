@@ -3,6 +3,10 @@ import java.util.Iterator;
 
 public class Deque<Item> implements Iterable<Item> {
 
+    private LinkList<Item> first = null;
+    private LinkList<Item> last = null;
+    private int size = 0;
+
     private class LinkList<Item> {
         Item item;
         LinkList<Item> next = null;
@@ -13,9 +17,6 @@ public class Deque<Item> implements Iterable<Item> {
         }
     }
 
-    private LinkList<Item> first = null;
-    private LinkList<Item> last = null;
-    private int size = 0;
 
     public Deque() {
 
@@ -104,6 +105,8 @@ public class Deque<Item> implements Iterable<Item> {
         }
     }
 
-    public Iterator<Item> iterator() { return new DequeIterator(); }
+    public Iterator<Item> iterator() {
+        return new DequeIterator();
+    }
 
 }

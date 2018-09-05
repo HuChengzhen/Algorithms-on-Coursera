@@ -1,18 +1,8 @@
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Set;
+import edu.princeton.cs.algs4.StdRandom;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
-//    public class RandomizedQueue<Item> implements Iterable<Item> {
-//        public RandomizedQueue()                 // construct an empty randomized queue
-//        public boolean isEmpty()                 // is the randomized queue empty?
-//        public int size()                        // return the number of items on the randomized queue
-//        public void enqueue(Item item)           // add the item
-//        public Item dequeue()                    // remove and return a random item
-//        public Item sample()                     // return a random item (but do not remove it)
-//        public Iterator<Item> iterator()         // return an independent iterator over items in random order
-//        public static void main(String[] args)   // unit testing (optional)
-//    }
 
     private Item[] s;
     private int size;
@@ -50,8 +40,54 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     public Item dequeue() {
         if (isEmpty()) throw new NoSuchElementException();
-        do {
-            int = 
-        } while (true);
+        int random = StdRandom.uniform(size);
+        Item item = s[random];
+
+        s[random] = s[size - 1];
+        s[size - 1] = null;
+        size -= 1;
+
+        if (size > 0 && size == s.length/4) resize(s.length/2);
+        return item;
+    }
+
+    public Item sample() {
+        if (isEmpty()) throw new NoSuchElementException();
+        int random = StdRandom.uniform(size);
+        Item item = s[random];
+        return item;
+    }
+
+    private class RandomizedQueueIterator implements Iterator<Item> {
+
+        private int current = 0;
+        private final Item[] randomCopy;
+
+        private RandomizedQueueIterator() {
+            randomCopy = (Item[]) new Object[size];
+            for (int i = 0; i < size; i++) {
+                randomCopy[i] = s[i];
+            }
+            StdRandom.shuffle(randomCopy);
+        }
+
+        public boolean hasNext() {
+            return current < randomCopy.length;
+        }
+
+        public Item next() {
+            if (!hasNext()) throw new NoSuchElementException();
+            Item item = randomCopy[current];
+            current += 1;
+            return item;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    public Iterator<Item> iterator() {
+        return new RandomizedQueueIterator();
     }
 }
